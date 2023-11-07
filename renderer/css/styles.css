@@ -1,0 +1,88 @@
+
+html,
+body,
+.player-wrapper,
+.weather-wrapper,
+.currency-wrapper,
+.traffic-wrapper,
+#video-player {
+  width: 100%;
+  height: 100%;
+  background-color: black;
+  color: white;
+  overflow: hidden;
+  object-fit: fill;
+}
+
+.currency-wrapper {
+  background-color: white;
+  color: black;
+}
+
+.currency-wrapper .container.bg-gray {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.currency-indicator {
+  display: block;
+  background-color: rgb(255, 186, 59);
+  padding: 1rem;
+  border-radius: 0.3rem;
+}
+
+.player-wrapper,
+.weather-wrapper,
+.currency-wrapper,
+.traffic-wrapper {
+  display: none;
+}
+
+.player-wrapper.active,
+.currency-wrapper.active,
+.traffic-wrapper.active {
+  display: block;
+}
+
+/* Currency */
+
+.currency-inner {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.current-time-box {
+  border-radius: 1rem;
+}
+
+/* Weather */
+.weather-wrapper.active {
+  display: flex;
+}
+
+.weather-wrapper {
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.weather-inner {
+  padding: 2rem;
+  background-color: rgba(255,255,255, 0.1);
+  border-radius: 1rem;
+}
+
+
+.current-weather-icon img {
+  display: block;
+  width: 100px;
+  height: 100px;
+  margin: auto;
+}
+
+.city, .current-weather {
+  border-bottom: 3px solid white;
+}

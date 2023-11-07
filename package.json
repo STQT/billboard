@@ -1,0 +1,23 @@
+{
+    "name": "billboardclient",
+    "version": "1.0.0",
+    "description": "",
+    "main": "main.js",
+    "scripts": {
+        "start": "electron .",
+        "production-build": "electron-packager . --overwrite --asar --icon=icon.png --out=release-builds --version-string.CompanyName=CE --version-string.FileDescription=CE --version-string.ProductName=\"BillboardClient\""
+    },
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "@sentry/electron": "^4.14.0",
+        "dotenv": "^16.3.1",
+        "electron": "^13.1.6",
+        "electron-db": "^0.15.7",
+        "electron-download-manager": "^2.1.2",
+        "electron-packager": "^15.2.0",
+        "md5-file": "^5.0.0",
+        "moment": "^2.29.4",
+        "node-fetch": "^2.6.1"
+    }
+}

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="../css/bootstrap.min.css">
+  <link rel="stylesheet" href="../css/styles.css">
+</head>
+
+<body>
+
+
+  <div class="player-wrapper">
+    <video id="video-player" autoplay muted></video>
+  </div>
+
+  <div class="weather-wrapper" id="weather-wrapper">
+    <div class="weather-split d-flex justify-content-center align-items-center w-50 h-100 p-5">
+      <div class="weather-inner d-flex flex-column">
+        <div class="city">
+          <span class="fw-bolder display-1">TOSHKENT</span>
+        </div>
+        <div class="current-weather my-5">
+          <div class="current-weather-icon">
+            <img id="current-weather-icon-img" src="../img/sun.png" alt="" />
+          </div>
+          <div class="current-weather-temperature text-center">
+            <span class="fw-bolder display-2" id="current-temp"></span>
+          </div>
+        </div>
+        <div class="row justify-content-around">
+          <div class="col morning-weather">
+            <p class="fw-bold display-6">Tong</p>
+            <h1 class="fw-bold display-4" id="morning-temp"></h1>
+          </div>
+          <div class="col afternoon-weather">
+            <p class="fw-bold display-6">Kun</p>
+            <h1 class="fw-bold display-4" id="afternoon-temp"></h1>
+          </div>
+          <div class="col evening-weather">
+            <p class="fw-bold display-6">Oqshom</p>
+            <h1 class="fw-bold display-4" id="evening-temp"></h1>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="filler-image w-50 h-100">
+      <img id="weather-filler-image" class="d-block h-100 w-100" src="../img/filler_image_1.jpg" alt="">
+    </div>
+  </div>
+
+  <div class="currency-wrapper">
+    <div class="d-flex h-100">
+      <div class="currency-split h-100 w-50">
+        <div class="currency-inner">
+          <div class="container">
+            <div class="row">
+              <div class="col-12 current-time-box-wrapper">
+                <div class="current-time-box bg-primary text-white p-4">
+                  <div class="row align-items-center">
+                    <div class="col-8">
+                      <h2 class="display-6" id="current-day-of-week"></h2>
+                      <h1 class="fw-bold display-6" id="current-day"></h1>
+                    </div>
+                    <div class="col-4">
+                      <h1 class="fw-bolder display-5" id="current-time"></h1>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-12">
+                <h1 class="fw-bold display-4 pt-3 pb-5">Valyutalar kursi</h1>
+              </div>
+            </div>
+          </div>
+          <div class="container bg-gray p-4">
+            <div class="row">
+              <div class="col-12 pt-3 pb-4">
+                <h2>O'zbekiston Respublikasi</h2>
+                <h1 class="fw-bold">Markaziy banki</h1>
+              </div>
+              <div class="row pb-3">
+                <div class="col-md-4 py-3">
+                  <h1 class="fw-bold display-4"><span class="currency-indicator">$ USD</span></h1>
+                </div>
+                <div class="col-md-8 py-3">
+                  <h1 class="fw-bold display-4"><span id="usd-currency"></span> som</h1>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-4 py-3">
+                  <h1 class="fw-bold display-4"><span class="currency-indicator">€ EUR</span></h1>
+                </div>
+                <div class="col-md-8 py-3">
+                  <h1 class="fw-bold display-4"><span id="eur-currency"></span> som</h1>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="filler-image w-50 h-100">
+        <img id="currency-filler-image" class="d-block h-100 w-100" src="../img/filler_image_2.jpg" alt="">
+      </div>
+    </div>
+  </div>
+
+  <div class="traffic-wrapper">
+    <h1>TRAFFIC INFO</h1>
+  </div>
+
+  <script src="../js/bootstrap.bundle.js"></script>
+  <script src="../js/player.js"></script>
+</body>
+
+</html>
