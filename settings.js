@@ -1,5 +1,6 @@
 const path = require('path')
-const Sentry = require('electron').remote.require('@sentry/electron');
+const { remote } = require('electron');
+const Sentry = remote.require('@sentry/electron');
 require('dotenv').config({ path: path.resolve(__dirname, './.env') })
 
 const CONFIG = {
