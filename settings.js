@@ -1,4 +1,5 @@
 const path = require('path')
+const Sentry = require('electron').remote.require('@sentry/electron');
 require('dotenv').config({ path: path.resolve(__dirname, './.env') })
 
 const CONFIG = {
@@ -14,10 +15,15 @@ const CONFIG = {
     OWM_API_KEY: process.env.OWM
 };
 
-const Sentry = require('@sentry/electron');
 
 Sentry.init({
     dsn: CONFIG.sentry_dsn,
+    replaysSessionSampleRate: 0.1,
+      // If the entire session is not sampled, use the below sample rate to sample
+      // sessions when an error occurs.
+    replaysOnErrorSampleRate: 1.0,
+
+    integrations: [new Sentry.Replay()],
 });
 module.exports.Sentry = Sentry;
 module.exports.CONFIG = CONFIG;
