@@ -1,5 +1,8 @@
 const { ipcRenderer } = require("electron");
 const { CONFIG } = require("../../settings")
+import * as Sentry from '@sentry/electron';
+
+Sentry.init({ dsn: CONFIG.sentry_dsn });
 
 // Function to disable all div's
 function clearWindow() {
