@@ -75,9 +75,7 @@ class APIDriver {
           console.log("Authentication successful");
         } else {
           console.log(responseJSON);
-          Sentry.captureMessage("Authentication failed", {
-            extra: { responseJSON },
-          });
+          Sentry.captureException("Authentication failed");
         }
       } catch (error) {
         console.log("Authentication failed");
