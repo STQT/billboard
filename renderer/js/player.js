@@ -174,11 +174,10 @@ function getCurrencies() {
         .then((response) => {
             return response.json();
         }).then((responseJSON) => {
-            console.log(responseJSON);
             let usd = responseJSON['usd_rate'];
             let eur = responseJSON['eur_rate'];
-            document.getElementById('usd-currency').innerText = usd.Rate;
-            document.getElementById('eur-currency').innerText = eur.Rate;
+            document.getElementById('usd-currency').innerText = usd;
+            document.getElementById('eur-currency').innerText = eur;
         });
 }
 

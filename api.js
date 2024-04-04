@@ -70,12 +70,12 @@ class APIDriver {
           }),
         });
         const responseJSON = await response.json();
+        console.log(CONFIG.auth.username, CONFIG.auth.password);
         if (responseJSON["key"]) {
           this.API_KEY = responseJSON["key"];
           console.log("Authentication successful");
         } else {
-          console.log(responseJSON);
-          Sentry.captureException("Authentication failed");
+          console.log("AUTH ERROR");
         }
       } catch (error) {
         console.log("Authentication failed");
