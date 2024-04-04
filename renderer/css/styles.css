@@ -13,6 +13,13 @@ body,
   overflow: hidden;
   object-fit: fill;
 }
+@media (min-width: 2100px) {
+  .content {
+    padding-left: 180px;
+    padding-right: 180px;
+  }
+}
+
 
 .currency-wrapper {
   background-color: white;

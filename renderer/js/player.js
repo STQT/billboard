@@ -1,8 +1,5 @@
 const { ipcRenderer } = require("electron");
 const { CONFIG } = require("../../settings")
-import * as Sentry from '@sentry/electron';
-
-Sentry.init({ dsn: CONFIG.sentry_dsn });
 
 // Function to disable all div's
 function clearWindow() {
@@ -20,6 +17,7 @@ document.getElementById('video-player').addEventListener('ended', function (even
 
 
 // Currency, Weather and Blank screen timeout
+let BASE_URL = CONFIG.BASE_URL;
 let NON_VIDEO_PLAY_DURATION = 5 * 1000;
 let WEATHER_API_CALL_INTERVAL = 1000 * 60 * 60 * 2;
 let CURRENCY_API_CALL_INTERVAL = 1000 * 60 * 60 * 24;
@@ -80,22 +78,21 @@ function convertIntToTemp(temp_value) {
 }
 
 function getWeather() {
-    let OWM_API_KEY = CONFIG.OWM_API_KEY;
-    fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=41.2995&lon=69.2401&appid=${OWM_API_KEY}&units=metric&lang=ru`).then((response) => {
+    fetch(`${BASE_URL}/info/weather/`).then((response) => {
         return response.json();
     }).then((responseJSON) => {
-        let current_temp = Math.round(responseJSON['current']['temp']);
-        let morn = Math.round(responseJSON['daily'][0]['temp']['morn']);
-        let day = Math.round(responseJSON['daily'][0]['temp']['day']);
-        let evening = Math.round(responseJSON['daily'][0]['temp']['eve']);
+        let current_temp = responseJSON['current_temp'];
+        let morn = responseJSON['morning_temp'];
+        let day = responseJSON['afternoon_temp'];
+        let evening = responseJSON['evening_temp'];
 
 
         document.getElementById('current-temp').innerText = convertIntToTemp(current_temp);
         document.getElementById('morning-temp').innerText = convertIntToTemp(morn);
         document.getElementById('afternoon-temp').innerText = convertIntToTemp(day);
         document.getElementById('evening-temp').innerText = convertIntToTemp(evening);
-        let sunrise = new Date(responseJSON['current']['sunrise'] * 1000);
-        let sunset = new Date(responseJSON['current']['sunset'] * 1000);
+        let sunrise = new Date(responseJSON['sunrise'] * 1000);
+        let sunset = new Date(responseJSON['sunset'] * 1000);
         let current_time = new Date();
 
         let daytime = 'night';
@@ -105,7 +102,7 @@ function getWeather() {
         }
 
 
-        switch (responseJSON['current']['weather'][0]['main']) {
+        switch (responseJSON['weather_main']) {
             case 'Thunderstorm':
                 if (daytime == 'day') {
                     document.getElementById('current-weather-icon-img').setAttribute('src', '../img/storm.png');
@@ -173,16 +170,15 @@ function getWeather() {
 
 // Currency
 function getCurrencies() {
-    fetch('https://cbu.uz/ru/arkhiv-kursov-valyut/json/')
+    fetch(`${BASE_URL}/info/currency/`)
         .then((response) => {
             return response.json();
         }).then((responseJSON) => {
-            if (Array.isArray(responseJSON)) {
-                let usd = responseJSON.find(currency => currency.Ccy == 'USD');
-                let eur = responseJSON.find(currency => currency.Ccy == 'EUR');
-                document.getElementById('usd-currency').innerText = usd.Rate;
-                document.getElementById('eur-currency').innerText = eur.Rate;
-            }
+            console.log(responseJSON);
+            let usd = responseJSON['usd_rate'];
+            let eur = responseJSON['eur_rate'];
+            document.getElementById('usd-currency').innerText = usd.Rate;
+            document.getElementById('eur-currency').innerText = eur.Rate;
         });
 }
 

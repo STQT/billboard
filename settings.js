@@ -1,5 +1,3 @@
-const { app } = require('electron');
-const Sentry = require('@sentry/electron');
 const path = require('path');
 require('dotenv').config({ path: path.resolve(__dirname, './.env') });
 
@@ -16,14 +14,4 @@ const CONFIG = {
     OWM_API_KEY: process.env.OWM
 };
 
-Sentry.init({
-    dsn: CONFIG.sentry_dsn,
-    replaysSessionSampleRate: 0.1,
-    replaysOnErrorSampleRate: 1.0,
-    integrations: [
-        // Specify your integrations here if needed.
-    ],
-});
-
-module.exports.Sentry = Sentry;
 module.exports.CONFIG = CONFIG;

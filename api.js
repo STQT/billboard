@@ -1,5 +1,5 @@
 const { CONFIG } = require("./settings");
-const { Sentry } = require("./settings");
+const { Sentry } = require("./main");
 const https = require('https');
 const fetch = require("node-fetch");
 const { app } = require("electron");
@@ -15,7 +15,7 @@ const PLAYED_VIDEOS_TABLE_NAME = "playedVideos";
 const PLAYLIST_TABLE_NAME = "playlist";
 const PLAYED_VIDEOS_DATABASE_PATH = path.join(__dirname, "");
 const PLAYLIST_DATABASE_PATH = path.join(__dirname, "");
-const DOWNLOAD_FOLDER = app.getPath("downloads") + "/BillboardClientVideos/";
+const DOWNLOAD_FOLDER = app.getPath("downloads") + "\\BillboardClientVideos\\";
 
 const agent = new Agent({
   rejectUnauthorized: false

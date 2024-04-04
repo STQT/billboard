@@ -1,5 +1,5 @@
 const {parentPort, workerData} = require("worker_threads");
-const {Sentry} = require("./settings")
+const {Sentry} = require("./main")
 
 downloadFile(workerData.url, workerData.dest);
 
