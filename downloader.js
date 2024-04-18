@@ -1,5 +1,4 @@
 const {parentPort, workerData} = require("worker_threads");
-const {Sentry} = require("./main")
 
 downloadFile(workerData.url, workerData.dest);
 
@@ -23,7 +22,6 @@ function downloadFile(url, dest) {
     .on("error", function (err) {
       // Request error
       console.log("Request to server went wrong");
-      Sentry.captureException(err)
       fs.unlinkSync(dest);
     });
 }
