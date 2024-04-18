@@ -14,7 +14,15 @@ body,
   object-fit: fill;
 }
 @media (min-width: 2100px) {
-  .content {
+  .player-wrapper {
+    padding-left: 180px;
+    padding-right: 180px;
+  }
+  .weather-wrapper {
+    padding-left: 180px;
+    padding-right: 180px;
+  }
+  .currency-wrapper {
     padding-left: 180px;
     padding-right: 180px;
   }

@@ -1,21 +1,9 @@
-const { app, BrowserWindow, ipcMain } = require('electron');
-const { APIDriver } = require('./api');
-const { CONFIG } = require("./settings");
-const Sentry = require('@sentry/electron');
+const {app, BrowserWindow, ipcMain} = require('electron');
+const {APIDriver} = require('./api');
+const {CONFIG} = require("./settings");
+const Sentry = require('./sentryConfig');
 
 let mainWindow;
-
-Sentry.init({
-    dsn: CONFIG.sentry_dsn,
-    replaysSessionSampleRate: 0.1,
-    replaysOnErrorSampleRate: 1.0,
-    integrations: [
-        // Specify your integrations here if needed.
-    ],
-});
-
-module.exports.Sentry = Sentry;
-
 
 const PLAYLIST_UPDATE_INTERVAL = 60 * 1000 * 10; // 10 mins
 const PLAYED_VIDEOS_REPORT_INTERVAL = 1000 * 60 * 60; // 60 mins
@@ -52,9 +40,7 @@ async function createWindow() {
         });
         mainWindow.setMenu(null);
         mainWindow.loadFile('./renderer/views/player.html');
-    }
-
-    else {
+    } else {
         mainWindow = new BrowserWindow({
             width: CONFIG.WIDTH,
             height: CONFIG.HEIGHT,
@@ -70,7 +56,7 @@ async function createWindow() {
         })
     }
 
-    
+
 }
 
 app.whenReady().then(() => {
@@ -80,7 +66,7 @@ app.whenReady().then(() => {
     Sentry.captureException(reason);
 })
 
-app.on('window-all-closed', function() {
+app.on('window-all-closed', function () {
     app.quit()
 })
 
@@ -117,7 +103,7 @@ async function switchWindowToNextPlay() {
 
 }
 
-ipcMain.on('videoFinishedPlaying', function(event, args) {
+ipcMain.on('videoFinishedPlaying', function (event, args) {
     switchWindowToNextPlay().catch((reason) => {
         console.log(reason);
         Sentry.captureException(reason);
