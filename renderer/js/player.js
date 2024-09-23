@@ -1,3 +1,82 @@
+const { ipcRenderer } = require("electron");
+const { CONFIG } = require("../../settings")
+
+// Function to disable all div's
+function clearWindow() {
+    document.querySelector('.weather-wrapper').classList.remove('active');
+    document.querySelector('.player-wrapper').classList.remove('active');
+    document.querySelector('.currency-wrapper').classList.remove('active');
+    document.querySelector('.traffic-wrapper').classList.remove('active');
+}
+
+// IPC call on video ends
+document.getElementById('video-player').addEventListener('ended', function (event) {
+    console.log('Sending ipc call')
+    ipcRenderer.send('videoFinishedPlaying', {})
+}, false)
+
+
+// Currency, Weather and Blank screen timeout
+let BASE_URL = CONFIG.BASE_URL;
+let NON_VIDEO_PLAY_DURATION = 5 * 1000;
+let WEATHER_API_CALL_INTERVAL = 1000 * 60 * 60 * 2;
+let CURRENCY_API_CALL_INTERVAL = 1000 * 60 * 60 * 24;
+let FILLER_IMAGE_UPDATE_INTERVAL = 1000 * 60 * 20;
+
+
+// This code receives the signal from main thread
+ipcRenderer.on('setWindow', function (event, args) {
+    console.log('Clearing window...')
+    clearWindow()
+    console.log(args)
+    switch (args.type) {
+        case 'Weather':
+            document.querySelector('.weather-wrapper').classList.add('active');
+            setTimeout(() => {
+                ipcRenderer.send('videoFinishedPlaying', {})
+            }, NON_VIDEO_PLAY_DURATION);
+            break;
+        case 'Currency':
+            console.log('Loading currency window');
+            document.querySelector('.currency-wrapper').classList.add('active');
+            setTimeout(() => {
+                ipcRenderer.send('videoFinishedPlaying', {})
+            }, NON_VIDEO_PLAY_DURATION);
+            break;
+        case 'ClientVideo':
+            console.log('Loading player window');
+            document.querySelector('.player-wrapper').classList.add('active');
+            document.getElementById('video-player').setAttribute('src', args.video.file);
+            break;
+        case 'MediabazaVideo':
+            console.log('Loading player window');
+            document.querySelector('.player-wrapper').classList.add('active');
+            document.getElementById('video-player').setAttribute('src', args.video.file);
+            break;
+        default:
+            clearWindow();
+            document.querySelector('.weather-wrapper').classList.add('active');
+            setTimeout(() => {
+                ipcRenderer.send('videoFinishedPlaying', {})
+            }, NON_VIDEO_PLAY_DURATION);
+    }
+})
+
+// First time update blank screen on load
+setTimeout(() => {
+    ipcRenderer.send('videoFinishedPlaying', {})
+}, NON_VIDEO_PLAY_DURATION);
+
+
+// Weather
+
+function convertIntToTemp(temp_value) {
+    if (temp_value > 0) {
+        return '+' + temp_value + '℃';
+    }
+    return '-' + temp_value + '℃';
+}
+
 // Weather
 function getWeather() {
     try {
